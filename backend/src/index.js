@@ -16,10 +16,15 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
   console.log('New websocket connection');
 
-  //Emite a todos los sockets
-  socket.emit('message', generateMessage('Welcome'));
-  //Emite a todos los sockets menos al actual
-  socket.broadcast.emit('message', generateMessage('A new user has joined'));
+  socket.on('joinRoom', ({ username, roomname }) => {
+    socket.join(roomname);
+
+    //Emite a todos los sockets
+    socket.emit('message', generateMessage('Welcome'));
+
+    //Emite a todos los sockets en la room menos al actual
+    socket.broadcast.to(roomname).emit('message', generateMessage(`${username} has joined`));
+  });
 
   //La callback es la función de acknowledgement enviada por el emisor
   socket.on('sendMessage', (message, callback) => {
