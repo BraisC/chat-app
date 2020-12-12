@@ -1,4 +1,5 @@
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
+
 const socket = io();
 
 const form = document.querySelector('#message-form');
@@ -6,7 +7,7 @@ const formInput = form.querySelector('input');
 const formButton = form.querySelector('button');
 const locationButton = document.querySelector('#location-button');
 
-const $messages = document.querySelector('#messages');
+const messages = document.querySelector('#messages');
 
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
@@ -14,9 +15,10 @@ const messageTemplate = document.querySelector('#message-template').innerHTML;
 socket.on('message', (data) => {
   console.log(data);
   const html = Mustache.render(messageTemplate, {
-    data,
+    data: data.text,
+    date: moment(data.date).format('h:mm a'),
   });
-  $messages.insertAdjacentHTML('beforeend', html);
+  messages.insertAdjacentHTML('beforeend', html);
 });
 
 form.addEventListener('submit', (e) => {
