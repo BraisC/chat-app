@@ -27,24 +27,32 @@ io.on('connection', (socket) => {
     socket.join(user.room);
 
     //Emite a todos los sockets
-    socket.emit('message', generateMessage('Bienvenido'));
+    socket.emit('message', generateMessage('Administrador', 'Bienvenido'));
 
     //Emite a todos los sockets en la room menos al actual
-    socket.broadcast.to(user.room).emit('message', generateMessage(`${user.name} se ha unido`));
+    socket.broadcast
+      .to(user.room)
+      .emit('message', generateMessage('Administrador', `${user.name} se ha unido`));
 
     callback();
   });
 
   //La callback es la función de acknowledgement enviada por el emisor
   socket.on('sendMessage', (message, callback) => {
-    io.emit('message', generateMessage(message));
+    const user = getUser(socket.id);
+    io.to(user?.room).emit('message', generateMessage(user.name, message));
     callback('Delivered');
   });
 
   socket.on('sendLocation', (location, callback) => {
-    io.emit(
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit(
       'locationMessage',
-      generateMessage(`https://google.com/maps?q=${location.latitude},${location.longitude}`)
+      generateMessage(
+        user.name,
+        `https://google.com/maps?q=${location.latitude},${location.longitude}`
+      )
     );
     callback();
   });

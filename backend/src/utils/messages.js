@@ -1,4 +1,5 @@
-const generateMessage = (message) => ({
+const generateMessage = (username, message) => ({
+  username,
   text: message,
   date: new Date().getTime(),
 });
