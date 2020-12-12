@@ -34,6 +34,8 @@ io.on('connection', (socket) => {
       .to(user.room)
       .emit('message', generateMessage('Administrador', `${user.name} se ha unido`));
 
+    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+
     callback();
   });
 
@@ -62,6 +64,7 @@ io.on('connection', (socket) => {
 
     if (user) {
       io.to(user.room).emit('message', generateMessage(`${user.name} ha abandonado la sala`));
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
     }
   });
 });
