@@ -17,10 +17,6 @@ const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML;
 //Options
 const { username, roomname } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
-const autoScroll = () => {
-  const newMessage = messages.lastElementChild;
-};
-
 socket.on('message', (data) => {
   console.log(data);
   const html = Mustache.render(messageTemplate, {
