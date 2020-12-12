@@ -27,7 +27,21 @@ const removeUser = (id) => {
   }
 };
 
-addUser({ id: 22, username: 'Brais', roomname: 'Sala 1' });
-addUser({ id: 23, username: 'Brais', roomname: 'Sala 1' });
-console.log(removeUser(22));
-console.log(users);
+const getUser = (id) => {
+  const user = users.find((u) => u.id === id);
+
+  if (user) return user;
+};
+
+const getUsersInRoom = (room) => {
+  const usersInRoom = users.filter((u) => u.room === room.trim().toLowerCase());
+
+  if (usersInRoom) return usersInRoom;
+};
+
+module.exports = {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom,
+};
