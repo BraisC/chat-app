@@ -1,6 +1,10 @@
 // eslint-disable-next-line no-undef
 const socket = io();
 
+socket.on('message', (data) => {
+  console.log(data);
+});
+
 document.querySelector('#message-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const message = e.target.elements.message.value;
@@ -8,6 +12,11 @@ document.querySelector('#message-form').addEventListener('submit', (e) => {
   socket.emit('sendMessage', message);
 });
 
-socket.on('message', (data) => {
-  console.log(data);
+document.querySelector('#location-button').addEventListener('click', () => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    socket.emit('sendLocation', {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+  });
 });
