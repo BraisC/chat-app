@@ -64,4 +64,9 @@ locationButton.addEventListener('click', () => {
   });
 });
 
-socket.emit('joinRoom', { username, roomname });
+socket.emit('joinRoom', { username, roomname }, (error) => {
+  if (error) {
+    alert(error);
+    location.href = '/';
+  }
+});
