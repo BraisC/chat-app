@@ -1,29 +1,38 @@
 import { UserContext } from 'contexts/UserContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Styled } from './styled';
 
 const Login = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const isInitialMount = useRef(true);
 
   const history = useHistory();
 
   const handleLogin = () => {
     if (name && room) {
       setUser({ name, room });
-      history.push('/public-room');
     }
   };
 
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else if (user) {
+      history.push('/public-room');
+    }
+  }, [user, history]);
+
   return (
     <Styled.Wrapper>
-      <div>
-        <input value={name} onChange={(e) => setName(e.target.value)} type="text" />
-        <input value={room} onChange={(e) => setRoom(e.target.value)} type="text" />
-        <div onClick={handleLogin}>Clickme</div>
-      </div>
+      <Styled.Card>
+        <Styled.Title>Benvido</Styled.Title>
+        <Styled.Input value={name} onChange={(e) => setName(e.target.value)} type="text" />
+        <Styled.Input value={room} onChange={(e) => setRoom(e.target.value)} type="text" />
+        <Styled.Button onClick={handleLogin}>Entra</Styled.Button>
+      </Styled.Card>
     </Styled.Wrapper>
   );
 };
