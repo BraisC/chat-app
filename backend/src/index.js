@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
     callback('Delivered');
   });
 
-  socket.on('sendLocation', (location, callback) => {
+  /*   socket.on('sendLocation', (location, callback) => {
     const user = getUser(socket.id);
 
     io.to(user.room).emit(
@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
       )
     );
     callback();
-  });
+  }); */
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);

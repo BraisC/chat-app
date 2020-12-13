@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import './App.css';
+import { SocketContext } from 'contexts/SocketContext';
+import { useContext, useEffect, useState } from 'react';
 
-function App() {
+const Login = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
   const [message, setMessage] = useState('');
+  const socket = useContext(SocketContext);
 
-  const socket = io('http://127.0.0.1:3000');
   useEffect(() => {
-    socket.on('message', (data) => setMessage(data.text));
+    socket?.on('message', (data) => setMessage(data.text));
   }, [socket]);
-
-  console.log('si');
   return (
-    <div className="App">
+    <>
       <input value={name} onChange={(e) => setName(e.target.value)} type="text" />
       <input value={room} onChange={(e) => setRoom(e.target.value)} type="text" />
       <div
@@ -29,8 +26,8 @@ function App() {
         Clickme
       </div>
       <div>{message}</div>
-    </div>
+    </>
   );
-}
+};
 
-export default App;
+export default Login;
