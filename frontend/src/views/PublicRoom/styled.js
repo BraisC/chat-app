@@ -3,11 +3,10 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   min-height: 100vh;
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
 `;
 
 const SideBar = styled.div`
-  background-color: var(--color-primary);
   min-width: 25rem;
 `;
 
@@ -32,17 +31,19 @@ const Chat = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  background-color: var(--color-secondary);
+  margin: 2rem;
 `;
 
 const Messages = styled.div`
   flex: 1 1 0;
   overflow: auto;
-  margin: 2rem;
+  margin: 2rem 0;
+  padding: 0 3rem;
 `;
 
 const AdminMessageWrapper = styled.div`
   margin: 1rem 0;
-
   width: 100%;
   display: flex;
   justify-content: center;
@@ -91,7 +92,7 @@ const MessageWrapper = styled.div`
 
 const WriteMessage = styled.form`
   display: flex;
-  padding: 2rem 0;
+  padding-top: 2rem;
   background-color: var(--color-primary);
 `;
 
@@ -108,7 +109,7 @@ const Button = styled.div`
   padding: 1rem;
   display: flex;
   background-color: var(--color-red);
-  margin-left: 1rem;
+  margin-left: 2rem;
   align-items: center;
   cursor: pointer;
 `;
