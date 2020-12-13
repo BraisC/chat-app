@@ -40,18 +40,14 @@ io.on('connection', (socket) => {
     callback('Delivered');
   });
 
-  /*   socket.on('sendLocation', (location, callback) => {
-    const user = getUser(socket.id);
+  socket.on('leaveRoom', () => {
+    const user = removeUser(socket.id);
 
-    io.to(user.room).emit(
-      'locationMessage',
-      generateMessage(
-        user.name,
-        `https://google.com/maps?q=${location.latitude},${location.longitude}`
-      )
-    );
-    callback();
-  }); */
+    if (user) {
+      io.to(user.room).emit('message', generateMessage(`${user.name} ha abandonado la sala`));
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+    }
+  });
 
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
