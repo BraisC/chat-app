@@ -5,9 +5,12 @@ import './App.css';
 function App() {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [message, setMessage] = useState('');
 
   const socket = io('http://127.0.0.1:3000');
-  useEffect(() => {}, []);
+  useEffect(() => {
+    socket.on('message', (data) => setMessage(data.text));
+  }, [socket]);
 
   console.log('si');
   return (
@@ -25,6 +28,7 @@ function App() {
       >
         Clickme
       </div>
+      <div>{message}</div>
     </div>
   );
 }
