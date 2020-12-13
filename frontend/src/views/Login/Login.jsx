@@ -1,31 +1,26 @@
-import { SocketContext } from 'contexts/SocketContext';
-import { useContext, useEffect, useState } from 'react';
+import { UserContext } from 'contexts/UserContext';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
-  const [message, setMessage] = useState('');
-  const socket = useContext(SocketContext);
+  const { setUser } = useContext(UserContext);
 
-  useEffect(() => {
-    socket?.on('message', (data) => setMessage(data.text));
-  }, [socket]);
+  const history = useHistory();
+
+  const handleLogin = () => {
+    if (name && room) {
+      setUser({ name, room });
+      history.push('/public-room');
+    }
+  };
+
   return (
     <>
       <input value={name} onChange={(e) => setName(e.target.value)} type="text" />
       <input value={room} onChange={(e) => setRoom(e.target.value)} type="text" />
-      <div
-        onClick={() => {
-          socket.emit('joinRoom', { username: name, roomname: room }, (error) => {
-            if (error) {
-              alert(error);
-            }
-          });
-        }}
-      >
-        Clickme
-      </div>
-      <div>{message}</div>
+      <div onClick={handleLogin}>Clickme</div>
     </>
   );
 };
