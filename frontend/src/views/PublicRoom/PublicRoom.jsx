@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 const PublicRoom = () => {
   const socket = useContext(SocketContext);
   const [message, setMessage] = useState('');
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -18,11 +18,12 @@ const PublicRoom = () => {
       if (error) {
         alert(error);
         history.push('/');
+        setUser();
       }
     });
 
     return () => socket?.emit('leaveRoom');
-  }, [socket, user, history]);
+  }, [socket, user, history, setUser]);
 
   return <div>{message}</div>;
 };
