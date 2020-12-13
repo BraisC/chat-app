@@ -1,6 +1,7 @@
 import { SocketContext } from 'contexts/SocketContext';
 import { UserContext } from 'contexts/UserContext';
-import { useContext, useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Styled } from './styled';
 
@@ -9,6 +10,13 @@ const PublicRoom = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState();
   const [room, setRoom] = useState();
+  const inputRef = useRef();
+  const setRef = useCallback((node) => {
+    if (node) {
+      node.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
@@ -32,6 +40,13 @@ const PublicRoom = () => {
   }, [socket, user, history, setUser]);
   console.log(room);
 
+  const handleSend = (e) => {
+    e.preventDefault();
+    message && socket.emit('sendMessage', message, () => console.log('Mensaxe recibida'));
+    setMessage('');
+    inputRef.current.focus();
+  };
+
   return (
     <Styled.Wrapper>
       <Styled.SideBar>
@@ -44,24 +59,47 @@ const PublicRoom = () => {
           ))}
         </Styled.UserList>
       </Styled.SideBar>
-      <div>
-        <div>
-          {messages.map((e) => (
-            <p key={e.date}>
-              Escrito por: {e.username} {e.text} y recibido por {user.name}
-            </p>
-          ))}
-        </div>
+      <Styled.Chat>
+        <Styled.Messages>
+          {messages.map((m, i) => {
+            const lastMessage = messages.length - 1 === i;
+            return (
+              <>
+                {m.username === 'Administrador' ? (
+                  <Styled.AdminMessageWrapper ref={lastMessage ? setRef : null} key={m.date}>
+                    <Styled.AdminMessage>{m.text}</Styled.AdminMessage>
+                  </Styled.AdminMessageWrapper>
+                ) : (
+                  <Styled.MessageWrapper
+                    ref={lastMessage ? setRef : null}
+                    key={m.date}
+                    self={m.username === user.name}
+                  >
+                    <Styled.MessageContent>
+                      <Styled.Username>{m.username}</Styled.Username>
+                      <Styled.Message>{m.text}</Styled.Message>
+                      <Styled.Date>{dayjs(m.date).format('DD/MM/YY - H:mm')}</Styled.Date>
+                    </Styled.MessageContent>
+                  </Styled.MessageWrapper>
+                )}
+              </>
+            );
+          })}
+        </Styled.Messages>
 
-        <div>
-          <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-          <div
-            onClick={() => message && socket.emit('sendMessage', message, (m) => console.log(m))}
-          >
-            Enviar
-          </div>
-        </div>
-      </div>
+        <Styled.WriteMessage onSubmit={handleSend}>
+          <Styled.MessageInput
+            ref={inputRef}
+            type="text"
+            value={message}
+            placeholder="Escribe a tua mensaxe"
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <Styled.Button onClick={handleSend}>
+            <Styled.ButtonText>Enviar</Styled.ButtonText>
+          </Styled.Button>
+        </Styled.WriteMessage>
+      </Styled.Chat>
     </Styled.Wrapper>
   );
 };
