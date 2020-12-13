@@ -21,7 +21,7 @@ const PublicRoom = () => {
       }
     });
 
-    return () => socket?.disconnect();
+    return () => socket?.emit('leaveRoom');
   }, [socket, user, history]);
 
   return <div>{message}</div>;
