@@ -37,4 +37,8 @@ export default createGlobalStyle`
       font-weight: 500;
       line-height: 1.6;
     }
+
+    textarea:focus, input:focus{
+      outline: 1px solid var(--color-red);
+    }
 `;
