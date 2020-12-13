@@ -8,10 +8,11 @@ const Login = () => {
   const [room, setRoom] = useState('');
   const { user, setUser } = useContext(UserContext);
   const isInitialMount = useRef(true);
-
+  const inputRef = useRef();
   const history = useHistory();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     if (name && room) {
       setUser({ name, room });
     }
@@ -25,11 +26,16 @@ const Login = () => {
     }
   }, [user, history]);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <Styled.Wrapper>
-      <Styled.Card>
+      <Styled.Card onSubmit={handleLogin}>
         <Styled.Title>Benvido</Styled.Title>
         <Styled.Input
+          ref={inputRef}
           value={name}
           onChange={(e) => setName(e.target.value)}
           type="text"

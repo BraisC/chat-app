@@ -38,7 +38,10 @@ const PublicRoom = () => {
       socket?.removeAllListeners();
     };
   }, [socket, user, history, setUser]);
-  console.log(room);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleSend = (e) => {
     e.preventDefault();

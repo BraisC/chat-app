@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   background-color: var(--color-secondary);
 `;
 
-const Card = styled.div`
+const Card = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
