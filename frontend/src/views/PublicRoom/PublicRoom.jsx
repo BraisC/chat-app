@@ -41,7 +41,7 @@ const PublicRoom = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  });
 
   const handleSend = (e) => {
     e.preventDefault();
@@ -49,6 +49,8 @@ const PublicRoom = () => {
     setMessage('');
     inputRef.current.focus();
   };
+
+  console.log(user.name);
 
   return (
     <Styled.Wrapper>
@@ -76,7 +78,7 @@ const PublicRoom = () => {
                   <Styled.MessageWrapper
                     ref={lastMessage ? setRef : null}
                     key={m.date}
-                    self={m.username === user.name}
+                    self={m.username === user.name.trim().toLowerCase()}
                   >
                     <Styled.MessageContent>
                       <Styled.Username>{m.username}</Styled.Username>
