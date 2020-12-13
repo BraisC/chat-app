@@ -1,5 +1,5 @@
 import { SocketProvider } from 'contexts/SocketContext';
-import { ThemeContext, MyThemeProvider } from 'contexts/ThemeContext';
+import { ThemeContext } from 'contexts/ThemeContext';
 import { UserProvider } from 'contexts/UserContext';
 import { useContext } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -14,23 +14,21 @@ function App() {
 
   return (
     <Router>
-      <MyThemeProvider>
-        <ThemeProvider theme={context?.theme === 'dark' ? darkTheme : lightTheme}>
-          <GlobalStyles />
-          <SocketProvider>
-            <UserProvider>
-              <Switch>
-                <Route path="/" exact>
-                  <Login />
-                </Route>
-                <Route path="/public-room" exact>
-                  <PublicRoom />
-                </Route>
-              </Switch>
-            </UserProvider>
-          </SocketProvider>
-        </ThemeProvider>
-      </MyThemeProvider>
+      <ThemeProvider theme={context?.theme === 'dark' ? darkTheme : lightTheme}>
+        <GlobalStyles />
+        <SocketProvider>
+          <UserProvider>
+            <Switch>
+              <Route path="/" exact>
+                <Login />
+              </Route>
+              <Route path="/public-room" exact>
+                <PublicRoom />
+              </Route>
+            </Switch>
+          </UserProvider>
+        </SocketProvider>
+      </ThemeProvider>
     </Router>
   );
 }
