@@ -4,8 +4,8 @@ import { UserProvider } from 'contexts/UserContext';
 import { useContext } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import GlobalStyles from 'styles/GlobalStyles';
-import Login from 'views/Login/Login';
-import PublicRoom from 'views/PublicRoom/PublicRoom';
+import Login from 'views/Login';
+import PublicRoom from 'views/PublicRoom';
 import { lightTheme, darkTheme } from 'styles/theme';
 import { ThemeProvider } from 'styled-components';
 
