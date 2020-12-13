@@ -1,8 +1,8 @@
 const users = [];
 
 const addUser = ({ id, username, roomname }) => {
-  const name = username.trim().toLowerCase();
-  const room = roomname.trim().toLowerCase();
+  const name = username?.trim().toLowerCase();
+  const room = roomname?.trim().toLowerCase();
 
   if (!name || !room) {
     return { error: 'Introduce una sala y nombre' };
