@@ -29,8 +29,18 @@ const Login = () => {
     <Styled.Wrapper>
       <Styled.Card>
         <Styled.Title>Benvido</Styled.Title>
-        <Styled.Input value={name} onChange={(e) => setName(e.target.value)} type="text" />
-        <Styled.Input value={room} onChange={(e) => setRoom(e.target.value)} type="text" />
+        <Styled.Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          type="text"
+          placeholder="Nome"
+        />
+        <Styled.Input
+          value={room}
+          onChange={(e) => setRoom(e.target.value)}
+          type="text"
+          placeholder="Sala"
+        />
         <Styled.Button onClick={handleLogin}>Entra</Styled.Button>
       </Styled.Card>
     </Styled.Wrapper>
