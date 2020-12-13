@@ -50,8 +50,6 @@ const PublicRoom = () => {
     inputRef.current.focus();
   };
 
-  console.log(user.name);
-
   return (
     <Styled.Wrapper>
       <Styled.SideBar>
