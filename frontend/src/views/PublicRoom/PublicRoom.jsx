@@ -40,7 +40,8 @@ const PublicRoom = () => {
 
   const handleSend = (e) => {
     e.preventDefault();
-    message && socket.emit('sendMessage', message, () => console.log('Mensaxe recibida'));
+    message &&
+      socket.emit('sendMessage', message, () => console.log('Mensaxe recibida no outro extremo'));
     setMessage('');
   };
 
@@ -63,7 +64,6 @@ const PublicRoom = () => {
 
         <Styled.WriteMessage onSubmit={handleSend}>
           <Styled.MessageInput
-            onFocus={() => console.log('sitio')}
             ref={inputRef}
             type="text"
             value={message}
