@@ -7,7 +7,7 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    const s = io('localhost:4001');
+    const s = io(process.env.REACT_APP_URL || 'localhost:4001');
     setSocket(s);
   }, []);
 
