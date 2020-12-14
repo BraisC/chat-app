@@ -42,7 +42,6 @@ const PublicRoom = () => {
     e.preventDefault();
     message && socket.emit('sendMessage', message, () => console.log('Mensaxe recibida'));
     setMessage('');
-    inputRef.current.focus();
   };
 
   return (
@@ -64,6 +63,7 @@ const PublicRoom = () => {
 
         <Styled.WriteMessage onSubmit={handleSend}>
           <Styled.MessageInput
+            onFocus={() => console.log('sitio')}
             ref={inputRef}
             type="text"
             value={message}

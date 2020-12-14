@@ -5,7 +5,7 @@ import { Styled } from './styled';
 const MessageList = memo(({ messages, user }) => {
   const setRef = useCallback((node) => {
     if (node) {
-      node.scrollIntoView({ behavior: 'smooth' });
+      node.scrollIntoView();
     }
   }, []);
 
