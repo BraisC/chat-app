@@ -45,8 +45,6 @@ const PublicRoom = () => {
     inputRef.current.focus();
   };
 
-  console.log(room);
-
   return (
     <Styled.Wrapper>
       <Styled.SideBar>
