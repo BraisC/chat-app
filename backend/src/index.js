@@ -20,12 +20,12 @@ io.on('connection', (socket) => {
     socket.join(user.room);
 
     //Emite a todos los sockets
-    socket.emit('message', generateMessage('Administrador', 'Bienvenido'));
+    socket.emit('message', generateMessage('Administrador', 'Benvido!'));
 
     //Emite a todos los sockets en la room menos al actual
     socket.broadcast
       .to(user.room)
-      .emit('message', generateMessage('Administrador', `${user.name} se ha unido`));
+      .emit('message', generateMessage('Administrador', `${user.name} entrou na sala`));
 
     io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        generateMessage('Administrador', `${user.name} ha abandonado la sala`)
+        generateMessage('Administrador', `${user.name} abandonou a sala`)
       );
       io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
     }
