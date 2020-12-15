@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        generateMessage('Administrador', `${user.name} ha abandonado la sala`)
+        generateMessage('Administrador', `${user.name} abandonow a sala`)
       );
       io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
     }

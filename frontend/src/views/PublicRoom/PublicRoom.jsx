@@ -1,3 +1,4 @@
+import MobileHeader from 'components/MobileHeader/MobileHeader';
 import { SocketContext } from 'contexts/SocketContext';
 import { UserContext } from 'contexts/UserContext';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -14,6 +15,18 @@ const PublicRoom = () => {
 
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 700px)');
+    const changeMobile = () => {
+      mediaQuery.matches ? setIsMobile(true) : setIsMobile(false);
+    };
+    mediaQuery.addEventListener('change', changeMobile);
+    changeMobile();
+    return () => mediaQuery.removeEventListener('change', changeMobile);
+  }, []);
 
   useEffect(() => {
     socket?.on('message', (data) => setMessages((m) => [...m, data]));
@@ -45,23 +58,28 @@ const PublicRoom = () => {
     setMessage('');
   };
 
+  console.log(isMobile);
+
   return (
-    <Styled.Wrapper>
-      <Styled.SideBar>
-        <Styled.Title>Usuarios</Styled.Title>
-        <Styled.UserList>
-          {room?.users.map((u) => (
-            <Styled.UserItem self={u.name === user.name} key={u.id}>
-              {u.name}
-            </Styled.UserItem>
-          ))}
-        </Styled.UserList>
-      </Styled.SideBar>
+    <Styled.Wrapper isMobile={isMobile}>
+      {isMobile && <MobileHeader roomName={room?.room} users={room?.users} currentUser={user} />}
+      {!isMobile && (
+        <Styled.SideBar>
+          <Styled.Title>Usuarios</Styled.Title>
+          <Styled.SubTitle>Sala: {room?.room}</Styled.SubTitle>
+          <Styled.UserList>
+            {room?.users.map((u) => (
+              <Styled.UserItem self={u.name === user.name} key={u.id}>
+                {u.name}
+              </Styled.UserItem>
+            ))}
+          </Styled.UserList>
+        </Styled.SideBar>
+      )}
       <Styled.Chat>
         <Styled.Messages>
           <MessageList messages={messages} user={user} />
         </Styled.Messages>
-
         <Styled.WriteMessage onSubmit={handleSend}>
           <Styled.MessageInput
             ref={inputRef}

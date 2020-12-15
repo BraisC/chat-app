@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+
+    :root {
+      --app-height: 100%;
+    }
+
     * {
       margin: 0;
       padding: 0;

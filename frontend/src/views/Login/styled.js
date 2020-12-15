@@ -4,8 +4,12 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   background-color: var(--color-secondary);
+
+  @media only screen and (max-width: 600px) {
+    height: var(--app-height);
+  }
 `;
 
 const Card = styled.form`

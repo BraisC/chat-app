@@ -1,7 +1,7 @@
 import { SocketProvider } from 'contexts/SocketContext';
 import { ThemeContext } from 'contexts/ThemeContext';
 import { UserProvider } from 'contexts/UserContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import GlobalStyles from 'styles/GlobalStyles';
 import Login from 'views/Login';
@@ -11,6 +11,14 @@ import { ThemeProvider } from 'styled-components';
 
 function App() {
   const context = useContext(ThemeContext);
+
+  const appHeight = () => {
+    document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+  };
+
+  useEffect(() => {
+    appHeight();
+  }, []);
 
   return (
     <Router>

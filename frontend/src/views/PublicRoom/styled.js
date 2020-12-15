@@ -2,8 +2,14 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  min-height: 100vh;
+  flex-direction: ${(props) => (props.isMobile ? 'column' : 'row')};
+  height: 100vh;
   background-color: var(--color-primary);
+
+  @media only screen and (max-width: 600px) {
+    height: var(--app-height);
+    overflow: hidden;
+  }
 `;
 
 const SideBar = styled.div`
@@ -18,6 +24,17 @@ const Title = styled.h1`
   margin-top: 3rem;
 `;
 
+const SubTitle = styled.h2`
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-align: center;
+  margin-top: 3rem;
+  max-width: 20rem;
+  margin: auto;
+  overflow: hidden;
+`;
+
 const UserList = styled.div`
   padding: 2rem;
 `;
@@ -30,9 +47,9 @@ const UserItem = styled.p`
 const Chat = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   background-color: var(--color-secondary);
   margin: 2rem;
+  flex-grow: 1;
 `;
 
 const Messages = styled.div`
@@ -125,6 +142,7 @@ export const Styled = {
   Wrapper,
   SideBar,
   Title,
+  SubTitle,
   UserList,
   UserItem,
   Chat,
