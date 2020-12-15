@@ -12,11 +12,13 @@ import { ThemeProvider } from 'styled-components';
 function App() {
   const context = useContext(ThemeContext);
 
+  //Scroll in mobile fix
   const appHeight = () => {
     document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
   };
 
   useEffect(() => {
+    window.addEventListener('resize', appHeight);
     appHeight();
   }, []);
 
