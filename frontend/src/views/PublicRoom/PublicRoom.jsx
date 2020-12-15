@@ -58,8 +58,6 @@ const PublicRoom = () => {
     setMessage('');
   };
 
-  console.log(isMobile);
-
   return (
     <Styled.Wrapper isMobile={isMobile}>
       {isMobile && <MobileHeader roomName={room?.room} users={room?.users} currentUser={user} />}
