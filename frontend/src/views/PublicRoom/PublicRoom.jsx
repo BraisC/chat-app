@@ -1,4 +1,5 @@
 import MobileHeader from 'components/MobileHeader/MobileHeader';
+import ThemeToggler from 'components/ThemeToggler';
 import { SocketContext } from 'contexts/SocketContext';
 import { UserContext } from 'contexts/UserContext';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -72,6 +73,9 @@ const PublicRoom = () => {
               </Styled.UserItem>
             ))}
           </Styled.UserList>
+          <Styled.TogglerWrapper>
+            <ThemeToggler />
+          </Styled.TogglerWrapper>
         </Styled.SideBar>
       )}
       <Styled.Chat>

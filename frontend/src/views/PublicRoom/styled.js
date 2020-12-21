@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 
 const SideBar = styled.div`
   min-width: 25rem;
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -138,6 +139,14 @@ const ButtonText = styled.p`
   color: var(--color-text);
 `;
 
+const TogglerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 30px;
+`;
+
 export const Styled = {
   Wrapper,
   SideBar,
@@ -158,4 +167,5 @@ export const Styled = {
   MessageInput,
   Button,
   ButtonText,
+  TogglerWrapper,
 };

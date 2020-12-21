@@ -11,6 +11,7 @@ const Wrapper = styled.label`
   transition: 0.2s ease;
   flex-shrink: 0;
   margin-right: 5rem;
+  margin-top: auto;
 
   @media ${(props) => props.theme.mediaQueries.tabLand} {
     margin-right: 0;
